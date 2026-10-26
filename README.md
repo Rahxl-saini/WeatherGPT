@@ -1,81 +1,129 @@
-# WeatherGPT
-
 # ⛅ WeatherGPT
 
-WeatherGPT is a highly knowledgeable, conversational AI assistant specialized in meteorology, climate patterns, and weather alerts. It leverages the power of Google's Gemini API to provide intelligent, concise, and straight-to-the-point weather insights.
+WeatherGPT is an AI-powered weather assistant designed to provide intelligent weather insights, climate information, and disaster alerts through a modern, interactive interface. Powered by Google's Gemini API and real-time weather services, it helps users explore weather conditions, understand meteorological patterns, and stay informed about potential weather hazards.
 
 ## ✨ Features
 
-- **🧠 Conversational AI:** Get real-time weather information, climate explanations, and forecasts by chatting with the built-in Gemini AI model.
-- **🗺️ Interactive Weather Map:** Explore a global, interactive weather map built with React Leaflet.
-- **🚨 Live Active Alerts:** Stay safe with real-time fetch integrations for public weather and disaster alerts (NDMA integration).
-- **🌪️ 3D Particle Morphing:** Enjoy a beautiful, dynamic Three.js particle system on the landing page that transitions smoothly between cloud, rain, and tornado states based on cursor movement.
-- **🌗 Light & Dark Mode:** Fully responsive Glassmorphic design that adapts to your system theme, complete with auto-adjusting 3D element styling.
-- **🚀 Ultra-Fast:** Built with React 19, Tailwind CSS v4, and bundled by Vite for a lightning-fast experience.
+- **🧠 AI Weather Assistant:** Ask questions about weather conditions, forecasts, climate patterns, and meteorological phenomena.
+- **🗺️ Interactive Weather Map:** Explore locations worldwide using an interactive map built with React Leaflet.
+- **🌦️ Real-Time Weather Data:** Retrieve weather information, including temperature, humidity, wind speed, and atmospheric pressure.
+- **🚨 Disaster Alerts:** Display public safety and severe weather alerts through the configured disaster-alert integration.
+- **🌪️ Interactive 3D Animations:** Experience dynamic Three.js particle effects representing clouds, rain, and tornadoes.
+- **🌗 Light & Dark Mode:** Switch between elegant themes with a responsive glassmorphism-inspired interface.
+- **📍 Location-Based Weather:** Select map coordinates to explore weather conditions for different locations.
+- **📱 Responsive Design:** Enjoy a smooth experience across desktops, tablets, and mobile devices.
+- **⚡ Modern Performance:** Built with React 19, Tailwind CSS v4, and Vite for a fast and responsive user experience.
 
 ## 🛠️ Tech Stack
 
-- **Frontend Framework:** [React 19](https://react.dev/)
-- **Bundler:** [Vite](https://vitejs.dev/)
-- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
-- **AI Integration:** [Google Generative AI (Gemini 3.6 Flash)](https://ai.google.dev/)
-- **Maps:** [React Leaflet](https://react-leaflet.js.org/)
-- **3D Graphics:** [Three.js](https://threejs.org/)
+- **Frontend:** React 19
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS v4
+- **AI Integration:** Google Gemini API
+- **Interactive Maps:** React Leaflet
+- **3D Graphics:** Three.js
+- **Weather Data:** Open-Meteo API
+- **Reverse Geocoding:** BigDataCloud API
+- **Disaster Alerts:** NDMA/SACHET integration
+- **HTTP Requests:** Fetch API
+- **Package Manager:** pnpm
 
 ## 🌐 External API Integrations
 
-WeatherGPT seamlessly connects with multiple backend services to deliver real-time data:
+### 1. Google Gemini API
 
-1. **Google Gemini API** (`gemini-3.6-flash`)
-   - **Use Case:** Powers the conversational AI that answers meteorological queries, parses weather terminology, and generates concise explanations.
-   - **How it Fetches:** Uses the official `@google/generative-ai` SDK to make authenticated requests from the client using the `VITE_GEMINI_API_KEY`.
+- **Purpose:** Powers the conversational AI assistant.
+- **Features:** Weather-related question answering, climate explanations, and meteorological insights.
+- **Integration:** Uses Google's Generative AI SDK to communicate with the configured Gemini model.
 
-2. **Open-Meteo API**
-   - **Use Case:** Supplies hyper-local, high-accuracy current weather conditions (temperature, wind speed, relative humidity, atmospheric pressure).
-   - **How it Fetches:** A direct, unauthenticated client-side `GET` request using the native browser `fetch()` API based on dynamic map coordinates.
+### 2. Open-Meteo API
 
-3. **BigDataCloud Reverse Geocoding API**
-   - **Use Case:** Translates raw geographic coordinates (latitude & longitude) into human-readable city names and localities when interacting with the weather map.
-   - **How it Fetches:** A direct, unauthenticated client-side `GET` request using the native browser `fetch()` API.
+- **Purpose:** Retrieves weather information for selected geographic coordinates.
+- **Data Provided:** Temperature, relative humidity, wind speed, atmospheric pressure, and other supported weather variables.
+- **Integration:** Uses HTTP GET requests through the browser's Fetch API.
 
-4. **NDMA (National Disaster Management Authority) Alerts API**
-   - **Use Case:** Fetches active public safety and severe weather disaster alerts for the interactive map interface.
-   - **How it Fetches:** Makes a `POST` request to a local alias (`/api/sachet/cap_public_website/FetchAllAlertDetails`). Because the government server uses strict SSL policies, this route is proxied globally to bypass CORS and SSL limitations (handled locally by `vite.config.ts` and in production by `vercel.json`).
+### 3. BigDataCloud Reverse Geocoding API
+
+- **Purpose:** Converts latitude and longitude into readable location information.
+- **Features:** Helps identify cities and localities selected on the interactive weather map.
+- **Integration:** Uses HTTP GET requests to retrieve location details.
+
+### 4. NDMA/SACHET Disaster Alerts
+
+- **Purpose:** Integrates public disaster-alert information into the application.
+- **Features:** Displays relevant alerts when supported by the configured service.
+- **Integration:** Uses the application's configured API proxy to communicate with the alert service.
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-Make sure you have [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/) installed.
+
+Install the following tools before running the application:
+
+- Node.js
+- pnpm
+- A Google Gemini API key
 
 ### Installation
 
-1. Clone the repository:
+**1. Navigate to the project directory**
+
 ```bash
 cd WeatherGPT
 ```
 
-2. Install the dependencies for the frontend:
+**2. Install dependencies**
+
 ```bash
-cd frontend
 pnpm install
 ```
 
-3. Set up your environment variables:
-Create a `.env.local` file inside the `frontend` directory and add your Google Gemini API key:
+If your project has separate frontend and backend directories, install dependencies in the appropriate directories.
+
+**3. Configure environment variables**
+
+Create a `.env.local` file in the frontend directory:
+
 ```env
 VITE_GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-4. Start the development server:
+Use a valid API key and follow Google's current API configuration requirements.
+
+**4. Start the development server**
+
 ```bash
 pnpm run dev
 ```
 
-The app will now be running on `http://localhost:8443`.
+**5. Open the application**
+
+Visit the local URL displayed in your terminal. If your Vite configuration uses port 8443, the application will be available at:
+
+`http://localhost:8443`
+
+## 📁 Key Components
+
+- **AI Chat Interface:** Provides conversational access to weather-related information.
+- **Interactive Weather Map:** Allows users to explore geographic locations and weather conditions.
+- **Weather Data Integration:** Retrieves supported weather measurements from external services.
+- **Disaster Alert Interface:** Presents information returned by the configured alert service.
+- **3D Particle System:** Creates animated atmospheric effects using Three.js.
+- **Theme Management:** Supports light and dark visual modes.
+
+## 🔮 Future Enhancements
+
+- Extended weather forecasts and historical weather analysis.
+- Weather notifications and customizable alert preferences.
+- Additional weather map layers and visualization options.
+- Saved locations and personalized weather dashboards.
+- AI-generated summaries of severe weather conditions.
+- Improved accessibility and multilingual support.
 
 ## 🤝 Contributing
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page]
+
+Contributions, bug reports, and feature requests are welcome. Developers can contribute by improving existing functionality, enhancing the user interface, or adding new weather-related features.
 
 ## 📝 License
-This project is open-source and available under the [MIT License](LICENSE).
 
+WeatherGPT can be distributed under the MIT License if the project repository includes the appropriate license file.
